@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside width="200px">
+        <compon-aside></compon-aside>
+      </el-aside>
       <el-container>
         <el-header>Header</el-header>
         <el-main>
@@ -14,11 +16,15 @@
 </template>
 
 <script>
+import componAside from '@/components/componAside'
 export default {
   data() {
     return {
 
     }
+  },
+  components:{
+    componAside
   }
 }
 </script>
