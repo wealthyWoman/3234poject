@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-container>
-            <el-aside width="200px">
+            <el-aside width="auto">
                 <compon-aside></compon-aside>
             </el-aside>
             <el-container>
@@ -35,5 +35,8 @@ export default {
 .el-header{
     padding: 0;
     margin: 0;
+}
+.el-menu{
+    border-right: none;
 }
 </style>
