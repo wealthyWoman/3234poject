@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import home from '../views/home.vue'
 import user from '../views/user.vue'
 import main from '../views/main.vue'
+import mall from '@/views/mall'
+import pageOne from '@/views/pageOne'
+import pageTwo from '@/views/pageTwo'
+
 Vue.use(VueRouter)
 
 //1、创建路由组件
@@ -13,10 +17,14 @@ const routes = [
   {
     path: '/',
     component: main,
+    redirect:'/home',  //重定向（当路径是/的时候，重定向到home页面）
     children: [
       //子路由
-      { path: '/home', component: home },
-      { path: '/user', component: user }
+      { path: '/home', component: home },  //首页
+      { path: '/user', component: user },  //用户管理
+      { path: '/mall', component: mall },  //商品管理
+      { path: '/page1', component: pageOne },  //
+      { path: '/page2', component: pageTwo },  //
     ]
   },
 ]

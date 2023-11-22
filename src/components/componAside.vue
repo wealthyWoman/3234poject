@@ -10,7 +10,7 @@
       active-text-color="#ffd04b"
       >
       <h3>通用后台管理</h3>
-        <el-menu-item v-for="item in noChildren" :key="item.name" :index="item.name">
+        <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
             <i :class="`el-icon-${item.icon}`"></i>
             <span slot="title">{{ item.label }}</span>
         </el-menu-item>
@@ -21,7 +21,7 @@
                 <span slot="title">{{ item.label }}</span>
             </template>
             <el-menu-item-group v-for="subItem in item.children" :key="subItem.path">
-                <el-menu-item :index="subItem.path">{{ subItem.label }}</el-menu-item>
+                <el-menu-item @click="clickMenu(subItem)" :index="subItem.path">{{ subItem.label }}</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
     </el-menu>
@@ -52,7 +52,7 @@ export default {
                     name: 'user',
                     label: '用户管理',
                     icon: 'user',
-                    url: 'UserManage/UserManage'
+                    url: 'user/user'
                 },
                 {
                     label: '其他',
@@ -83,6 +83,11 @@ export default {
         },
         handleClose(key, keyPath) {
             console.log(key, keyPath);
+        },
+        //点击菜单
+        clickMenu(item){
+            console.log(item);
+            this.$router.push(item.path)
         }
     },
     computed: {
