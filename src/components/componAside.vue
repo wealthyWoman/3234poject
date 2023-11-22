@@ -1,15 +1,7 @@
 <template>
-    <el-menu 
-      default-active="1-4-1" 
-      class="el-menu-vertical-demo" 
-      @open="handleOpen" 
-      @close="handleClose"
-      :collapse="isCollapse"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      >
-      <h3>通用后台管理</h3>
+    <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+        :collapse="isCollapse" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+        <h3>通用后台管理</h3>
         <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
             <i :class="`el-icon-${item.icon}`"></i>
             <span slot="title">{{ item.label }}</span>
@@ -85,9 +77,12 @@ export default {
             console.log(key, keyPath);
         },
         //点击菜单
-        clickMenu(item){
+        clickMenu(item) {
             console.log(item);
-            this.$router.push(item.path)
+            //当前页面的路由与跳转的路由不一致才允许跳转
+            if (this.$route.path != item.path && !(this.$route.path === '/home' && (item.path === '/'))) {
+                this.$router.push(item.path)
+            }
         }
     },
     computed: {
@@ -109,9 +104,11 @@ export default {
     width: 200px;
     min-height: 400px;
 }
-.el-menu{
+
+.el-menu {
     height: 100vh;
-    h3{
+
+    h3 {
         color: white;
         text-align: center;
         line-height: 48px;
