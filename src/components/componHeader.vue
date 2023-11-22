@@ -1,7 +1,7 @@
 <template>
     <div class="heater-content">
         <div class="l-content">
-            <el-button icon="el-icon-menu" size="mini"></el-button>
+            <el-button @click="hanldMenu" icon="el-icon-menu" size="mini"></el-button>
             <span class="text">首页</span>
         </div>
         <div class="r-content">
@@ -23,6 +23,11 @@ export default {
     data() {
         return {
 
+        }
+    },
+    methods:{
+        hanldMenu(){
+            this.$store.commit('collapseMenu')
         }
     }
 }
