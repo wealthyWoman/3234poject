@@ -23,7 +23,15 @@
         </el-col>
         <!-- 右侧内容 -->
         <el-col :span="16">
-            <div class="grid-content bg-purple-light"></div>
+            <div class="num">
+                <el-card v-for="item in  contData " :key="item.name" :body-style="{ display: 'flex',padding:0}">
+                    <i class="icon" :class="`el-icon-${item.icon}`" :style="{ background: item.color }"></i>
+                    <div class="detial">
+                        <p class="pp1">￥{{ item.value }}</p>
+                        <p class="pp2">{{ item.name }}</p>
+                    </div>
+                </el-card>
+            </div>
         </el-col>
     </el-row>
 </template>
@@ -34,40 +42,40 @@ export default {
         return {
             tableData: [
                 {
-                    name:'oppo',
-                    todayBuy:100,
-                    monthBuy:200,
-                    totaBuy:300,
+                    name: 'oppo',
+                    todayBuy: 100,
+                    monthBuy: 200,
+                    totaBuy: 300,
                 },
                 {
-                    name:'oppo',
-                    todayBuy:100,
-                    monthBuy:200,
-                    totaBuy:300,
+                    name: 'oppo',
+                    todayBuy: 100,
+                    monthBuy: 200,
+                    totaBuy: 300,
                 },
                 {
-                    name:'oppo',
-                    todayBuy:100,
-                    monthBuy:200,
-                    totaBuy:300,
+                    name: 'oppo',
+                    todayBuy: 100,
+                    monthBuy: 200,
+                    totaBuy: 300,
                 },
                 {
-                    name:'oppo',
-                    todayBuy:100,
-                    monthBuy:200,
-                    totaBuy:300,
+                    name: 'oppo',
+                    todayBuy: 100,
+                    monthBuy: 200,
+                    totaBuy: 300,
                 },
                 {
-                    name:'oppo',
-                    todayBuy:100,
-                    monthBuy:200,
-                    totaBuy:300,
+                    name: 'oppo',
+                    todayBuy: 100,
+                    monthBuy: 200,
+                    totaBuy: 300,
                 },
                 {
-                    name:'oppo',
-                    todayBuy:100,
-                    monthBuy:200,
-                    totaBuy:300,
+                    name: 'oppo',
+                    todayBuy: 100,
+                    monthBuy: 200,
+                    totaBuy: 300,
                 }
             ],
             tabLabel: {
@@ -75,7 +83,48 @@ export default {
                 todayBuy: '今日购买',
                 monthBuy: '本月购买',
                 totaBuy: '总购买'
-            }
+
+            },
+            contData: [
+                {
+                    name: '今日支付订单',
+                    value: 1234,
+                    icon: "success",
+                    color: "#2ec7c9"
+                },
+                {
+                    name: '今日支付订单',
+                    value: 1234,
+                    icon: "success",
+                    color: "#2ec7c9"
+                },
+                {
+                    name: '今日支付订单',
+                    value: 1234,
+                    icon: "success",
+                    color: "#2ec7c9"
+                },
+                {
+                    name: '今日支付订单',
+                    value: 1234,
+                    icon: "success",
+                    color: "#2ec7c9"
+                },
+                {
+                    name: '今日支付订单',
+                    value: 1234,
+                    icon: "success",
+                    color: "#2ec7c9"
+                },
+                {
+                    name: '今日支付订单',
+                    value: 1234,
+                    icon: "success",
+                    color: "#2ec7c9"
+                }
+
+            ]
+
         }
     }
 }
@@ -119,6 +168,41 @@ export default {
                 margin-left: 60px;
             }
         }
+    }
+}
+
+.num {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .icon {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+        text-align: center;
+        line-height: 80px;
+        color: #fff;
+    }
+    .detial{
+        display: flex;
+        flex-direction: column;  //改变主轴为上下方向
+        justify-content: center;
+        margin-left: 15px;
+        .pp1{
+            font-size: 30px;
+            margin-bottom: 10px;
+            line-height: 30px;
+            height: 30px;
+        }
+        .pp2{
+            color: #999999;
+            font-size: 14px;
+            text-align: center;
+        }
+    }
+    .el-card{
+        width: 30%;
+        margin-bottom: 20px;
     }
 }
 </style>
