@@ -15,6 +15,11 @@
                     <p>上次登录地点:<span>贵阳</span></p>
                 </div>
             </el-card>
+            <el-card style="margin-top: 20px;height: 460px;">
+                <el-table :data="tableData" style="width: 100%">
+                    <el-table-column v-for="(val, key) in tabLabel" :key="key" :prop="key" :label="val" />
+                </el-table>
+            </el-card>
         </el-col>
         <!-- 右侧内容 -->
         <el-col :span="16">
@@ -27,7 +32,50 @@
 export default {
     data() {
         return {
-
+            tableData: [
+                {
+                    name:'oppo',
+                    todayBuy:100,
+                    monthBuy:200,
+                    totaBuy:300,
+                },
+                {
+                    name:'oppo',
+                    todayBuy:100,
+                    monthBuy:200,
+                    totaBuy:300,
+                },
+                {
+                    name:'oppo',
+                    todayBuy:100,
+                    monthBuy:200,
+                    totaBuy:300,
+                },
+                {
+                    name:'oppo',
+                    todayBuy:100,
+                    monthBuy:200,
+                    totaBuy:300,
+                },
+                {
+                    name:'oppo',
+                    todayBuy:100,
+                    monthBuy:200,
+                    totaBuy:300,
+                },
+                {
+                    name:'oppo',
+                    todayBuy:100,
+                    monthBuy:200,
+                    totaBuy:300,
+                }
+            ],
+            tabLabel: {
+                name: '课程',
+                todayBuy: '今日购买',
+                monthBuy: '本月购买',
+                totaBuy: '总购买'
+            }
         }
     }
 }
@@ -65,7 +113,8 @@ export default {
             line-height: 28px;
             font-size: 14px;
             color: #999999;
-            span{
+
+            span {
                 color: #666666;
                 margin-left: 60px;
             }
