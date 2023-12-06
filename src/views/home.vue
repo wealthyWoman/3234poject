@@ -1,7 +1,7 @@
 <template>
     <el-row>
         <!-- 左侧内容 -->
-        <el-col :span="8">
+        <el-col :span="8" style="padding-right: 10px;">
             <el-card class="box-card">
                 <div class="user">
                     <img src="../assets/logo.png" alt="">
@@ -22,7 +22,7 @@
             </el-card>
         </el-col>
         <!-- 右侧内容 -->
-        <el-col :span="16">
+        <el-col :span="16" style="padding-left: 10px;">
             <div class="num">
                 <el-card v-for="item in  contData " :key="item.name" :body-style="{ display: 'flex', padding: 0 }">
                     <i class="icon" :class="`el-icon-${item.icon}`" :style="{ background: item.color }"></i>
@@ -32,14 +32,21 @@
                     </div>
                 </el-card>
             </div>
+            <el-card style="height: 280px;">
+                <!-- 折线图 -->
+                <div ref="echars1" style="height: 280px;"></div>
+            </el-card>
+            <div class="graph">
+                <el-card style="height: 260px;"></el-card>
+                <el-card style="height: 260px;"></el-card>
+            </div>
         </el-col>
     </el-row>
 </template>
 
 <script>
-import {
-    getData
-} from '../api/index'
+import { getData } from '../api/index'
+import * as echars from 'echarts'
 
 export default {
     data() {
@@ -132,8 +139,37 @@ export default {
         }
     },
     mounted() {
-        getData().then((data)=>{
+        getData().then((data) => {
+            const { tableData } = data.data
             console.log(data);
+            this.tabLabel = tableData
+
+
+            // //基于准备好的dom，初始化echart实例
+            // echars.init(this.$refs.echars1)
+            // //指定图表的配置项和数据
+            // var echarsOption = {}
+            // //处理xAxis数据
+            // const { orderData } = data.data
+            // const xAxis = Object.keys(orderData.data[0])
+            // const xAxisData = {
+            //     data: xAxis
+            // }
+            // echarsOption.xAxis = xAxisData
+            // echarsOption.yAxis = {}
+            // echarsOption.legend = xAxisData
+            // echarsOption.series = []
+            // xAxis.forEach(key => {  //遍历拿到数组中的每一项
+            //     echarsOption.series.push({
+            //         name: key,
+            //         data: orderData.data.map(item => item[key]),
+            //         type: 'line'
+            //     })
+            // })
+            // console.log(echarsOption);
+            // //使用刚指定的配置和数据显示图标
+            // echars1.setOption(echarsOption)
+
         })
     }
 }
@@ -218,4 +254,15 @@ export default {
         width: 30%;
         margin-bottom: 20px;
     }
-}</style>
+}
+
+.graph {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    .el-card {
+        width: 48%;
+    }
+}
+</style>
