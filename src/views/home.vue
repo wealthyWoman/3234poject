@@ -24,7 +24,7 @@
         <!-- 右侧内容 -->
         <el-col :span="16">
             <div class="num">
-                <el-card v-for="item in  contData " :key="item.name" :body-style="{ display: 'flex',padding:0}">
+                <el-card v-for="item in  contData " :key="item.name" :body-style="{ display: 'flex', padding: 0 }">
                     <i class="icon" :class="`el-icon-${item.icon}`" :style="{ background: item.color }"></i>
                     <div class="detial">
                         <p class="pp1">￥{{ item.value }}</p>
@@ -37,6 +37,10 @@
 </template>
 
 <script>
+import {
+    getData
+} from '../api/index'
+
 export default {
     data() {
         return {
@@ -126,6 +130,11 @@ export default {
             ]
 
         }
+    },
+    mounted() {
+        getData().then((data)=>{
+            console.log(data);
+        })
     }
 }
 </script>
@@ -175,6 +184,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
     .icon {
         width: 80px;
         height: 80px;
@@ -183,26 +193,29 @@ export default {
         line-height: 80px;
         color: #fff;
     }
-    .detial{
+
+    .detial {
         display: flex;
-        flex-direction: column;  //改变主轴为上下方向
+        flex-direction: column; //改变主轴为上下方向
         justify-content: center;
         margin-left: 15px;
-        .pp1{
+
+        .pp1 {
             font-size: 30px;
             margin-bottom: 10px;
             line-height: 30px;
             height: 30px;
         }
-        .pp2{
+
+        .pp2 {
             color: #999999;
             font-size: 14px;
             text-align: center;
         }
     }
-    .el-card{
+
+    .el-card {
         width: 30%;
         margin-bottom: 20px;
     }
-}
-</style>
+}</style>
