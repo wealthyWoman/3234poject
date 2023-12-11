@@ -34,7 +34,7 @@
             </div>
             <el-card style="height: 280px;">
                 <!-- 折线图 -->
-                <div ref="echars1" style="height: 280px;"></div>
+                <div ref="echarts1" style="height: 280px;"></div>
             </el-card>
             <div class="graph">
                 <el-card style="height: 260px;"></el-card>
@@ -46,55 +46,17 @@
 
 <script>
 import { getData } from '../api/index'
-import * as echars from 'echarts'
+import * as echarts from 'echarts'
 
 export default {
     data() {
         return {
-            tableData: [
-                {
-                    name: 'oppo',
-                    todayBuy: 100,
-                    monthBuy: 200,
-                    totaBuy: 300,
-                },
-                {
-                    name: 'oppo',
-                    todayBuy: 100,
-                    monthBuy: 200,
-                    totaBuy: 300,
-                },
-                {
-                    name: 'oppo',
-                    todayBuy: 100,
-                    monthBuy: 200,
-                    totaBuy: 300,
-                },
-                {
-                    name: 'oppo',
-                    todayBuy: 100,
-                    monthBuy: 200,
-                    totaBuy: 300,
-                },
-                {
-                    name: 'oppo',
-                    todayBuy: 100,
-                    monthBuy: 200,
-                    totaBuy: 300,
-                },
-                {
-                    name: 'oppo',
-                    todayBuy: 100,
-                    monthBuy: 200,
-                    totaBuy: 300,
-                }
-            ],
+            tableData: {},
             tabLabel: {
                 name: '课程',
                 todayBuy: '今日购买',
                 monthBuy: '本月购买',
                 totaBuy: '总购买'
-
             },
             contData: [
                 {
@@ -104,71 +66,70 @@ export default {
                     color: "#2ec7c9"
                 },
                 {
-                    name: '今日支付订单',
+                    name: '今日支付订',
                     value: 1234,
                     icon: "success",
                     color: "#2ec7c9"
                 },
                 {
-                    name: '今日支付订单',
+                    name: '今日支付单',
                     value: 1234,
                     icon: "success",
                     color: "#2ec7c9"
                 },
                 {
-                    name: '今日支付订单',
+                    name: '日支付订单',
                     value: 1234,
                     icon: "success",
                     color: "#2ec7c9"
                 },
                 {
-                    name: '今日支付订单',
+                    name: '订单',
                     value: 1234,
                     icon: "success",
                     color: "#2ec7c9"
                 },
                 {
-                    name: '今日支付订单',
+                    name: '今日支付',
                     value: 1234,
                     icon: "success",
                     color: "#2ec7c9"
                 }
-
             ]
-
         }
     },
     mounted() {
-        getData().then((data) => {
+        getData().then(({ data }) => {
             const { tableData } = data.data
             console.log(data);
             this.tabLabel = tableData
+            // console.log(111);
 
 
-            // //基于准备好的dom，初始化echart实例
-            // echars.init(this.$refs.echars1)
-            // //指定图表的配置项和数据
-            // var echarsOption = {}
-            // //处理xAxis数据
-            // const { orderData } = data.data
-            // const xAxis = Object.keys(orderData.data[0])
-            // const xAxisData = {
-            //     data: xAxis
-            // }
-            // echarsOption.xAxis = xAxisData
-            // echarsOption.yAxis = {}
-            // echarsOption.legend = xAxisData
-            // echarsOption.series = []
-            // xAxis.forEach(key => {  //遍历拿到数组中的每一项
-            //     echarsOption.series.push({
-            //         name: key,
-            //         data: orderData.data.map(item => item[key]),
-            //         type: 'line'
-            //     })
-            // })
-            // console.log(echarsOption);
-            // //使用刚指定的配置和数据显示图标
-            // echars1.setOption(echarsOption)
+            //基于准备好的dom，初始化echart实例
+            const echarts1 = echarts.init(this.$refs.echarts1)
+            //指定图表的配置项和数据
+            var echartsOption = {}
+            //处理xAxis数据
+            const { orderData } = data.data
+            const xAxis = Object.keys(orderData.data[0])
+            const xAxisData = {
+                data: xAxis
+            }
+            echartsOption.xAxis = xAxisData
+            echartsOption.yAxis = {}
+            echartsOption.legend = xAxisData
+            echartsOption.series = []
+            xAxis.forEach(key => {  //遍历拿到数组中的每一项
+                echartsOption.series.push({
+                    name: key,
+                    data: orderData.data.map(item => item[key]),
+                    type: 'line'
+                })
+            })
+            console.log(echartsOption);
+            //使用刚指定的配置和数据显示图标
+            echarts1.setOption(echartsOption)
 
         })
     }
