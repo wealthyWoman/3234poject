@@ -17,8 +17,11 @@
             </el-card>
             <el-card style="margin-top: 20px;height: 460px;">
                 <el-table :data="tableData" style="width: 100%">
-                    <el-table-column v-for="(val, key) in tabLabel" :key="key" :prop="key" :label="val" />
+                    <el-table-column v-for="(val, key) in tableLabel" :key="key" :prop="key" :label="val" />
                 </el-table>
+                <!-- <el-table :data="tableData" style="width: 100%">
+                    <el-table-column v-for="(val, key) in tableLabel" :prop="key" :label="val" />
+                </el-table> -->
             </el-card>
         </el-col>
         <!-- 右侧内容 -->
@@ -37,8 +40,12 @@
                 <div ref="echarts1" style="height: 280px;"></div>
             </el-card>
             <div class="graph">
-                <el-card style="height: 260px;"></el-card>
-                <el-card style="height: 260px;"></el-card>
+                <el-card style="height: 260px;">
+                    <div ref="echarts2" style="height: 260px;"></div>
+                </el-card>
+                <el-card style="height: 260px;">
+                    <div ref="echarts3" style="height: 240px"></div>
+                </el-card>
             </div>
         </el-col>
     </el-row>
@@ -52,7 +59,7 @@ export default {
     data() {
         return {
             tableData: {},
-            tabLabel: {
+            tableLabel: {
                 name: '课程',
                 todayBuy: '今日购买',
                 monthBuy: '本月购买',
@@ -101,9 +108,7 @@ export default {
     mounted() {
         getData().then(({ data }) => {
             const { tableData } = data.data
-            console.log(data);
-            this.tabLabel = tableData
-            // console.log(111);
+            this.tableData = tableData
 
 
             //基于准备好的dom，初始化echart实例
@@ -111,7 +116,7 @@ export default {
             //指定图表的配置项和数据
             var echartsOption = {}
             //处理xAxis数据
-            const { orderData } = data.data
+            const { orderData, userData, videoData } = data.data
             const xAxis = Object.keys(orderData.data[0])
             const xAxisData = {
                 data: xAxis
@@ -130,6 +135,88 @@ export default {
             console.log(echartsOption);
             //使用刚指定的配置和数据显示图标
             echarts1.setOption(echartsOption)
+
+
+            //柱状图
+            //初始化实例
+            const echarts2 = echarts.init(this.$refs.echarts2);
+            const eachrts2Option = {
+                legend: {
+                    // 图例文字颜色
+                    textStyle: {
+                        color: "#333",
+                    },
+                },
+                grid: {
+                    left: "20%",
+                },
+                // 提示框
+                tooltip: {
+                    trigger: "axis",
+                },
+                xAxis: {
+                    type: "category", // 类目轴
+                    data: userData.map((item) => item.date),
+                    axisLine: {
+                        lineStyle: {
+                            color: "#17b3a3",
+                        },
+                    },
+                    axisLabel: {
+                        interval: 0,
+                        color: "#333",
+                    },
+                },
+                yAxis: [
+                    {
+                        type: "value",
+                        axisLine: {
+                            lineStyle: {
+                                color: "#17b3a3",
+                            },
+                        },
+                    },
+                ],
+                color: ["#2ec7c9", "#b6a2de"],
+                series: [
+                    {
+                        name: "新增用户",
+                        data: userData.map((item) => item.new),
+                        type: "bar",
+                    },
+                    {
+                        name: "活跃用户",
+                        data: userData.map((item) => item.active),
+                        type: "bar",
+                    },
+                ],
+            };
+            echarts2.setOption(eachrts2Option);
+
+
+            // 饼状图
+            const echarts3 = echarts.init(this.$refs.echarts3);
+            const eachrts3Option = {
+                tooltip: {
+                    trigger: "item",
+                },
+                color: [
+                    "#0f78f4",
+                    "#dd536b",
+                    "#9462e5",
+                    "#a6a6a6",
+                    "#e1bb22",
+                    "#39c362",
+                    "#3ed1cf",
+                ],
+                series: [
+                    {
+                        data: videoData,
+                        type: "pie",
+                    },
+                ],
+            };
+            echarts3.setOption(eachrts3Option);
 
         })
     }
